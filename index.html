@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="514170284 黃修逸 - 幸運物動態互動網頁：我的幸運小貓（虎斑貓）">
+  <title>LUCKY TABBY CAT 幸運小貓｜守護心靈的溫暖靈光</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="ambient-glow glow-top-left"></div>
+  <div class="ambient-glow glow-bottom-right"></div>
+  <canvas id="particleCanvas"></canvas>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#top" class="brand-logo">
+        <div class="cat-brand-badge">🐱</div>
+        <div class="brand-text">
+          <span class="brand-title">LUCKY TABBY CAT</span>
+          <span class="brand-sub">守護心靈的幸運虎斑貓</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#showcase" class="nav-link active">幸運主體</a>
+        <a href="#story" class="nav-link">由來與故事</a>
+        <a href="#gallery" class="nav-link">幸運寫真</a>
+        <a href="#symbolism" class="nav-link">象徵意涵</a>
+        <a href="#fortune" class="nav-link">今日籤筒</a>
+        <a href="#prompt-section" class="nav-link highlight">Prompt 指令紀錄</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="musicToggleBtn" class="action-btn music-btn" title="播放/暫停背景音樂">
+          <span class="music-icon">🎵</span>
+          <span class="music-text">音樂 OFF</span>
+        </button>
+        <button id="soundToggleBtn" class="action-btn" title="開啟/關閉貓叫聲音效">
+          <span class="sound-icon">🔊</span>
+          <span class="sound-text">音效 ON</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO 主展示區 -->
+    <section id="showcase" class="hero-section">
+      <div class="hero-container">
+        
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>MY LUCKY CHARM ・ 專屬隨身幸運物</span>
+          </div>
+          <h1 class="hero-title">
+            溫柔呼嚕，<br>
+            <span class="text-gradient">好運隨之安頓降臨。</span>
+          </h1>
+          <p class="hero-desc">
+            這隻擁有一雙澄澈大眼與靈動斑紋的虎斑小貓，是我日常生活中最強大的心靈定心石。無論外在世界多麼喧囂疲憊，只要看見牠揮手招福、懷抱愛心走向我，所有焦慮便一掃而空，好運隨即降臨。
+          </p>
+
+          <div class="lucky-gauge-card">
+            <div class="gauge-header">
+              <span class="gauge-label">⚡ 幸運守護能量 (Lucky Purr Level)</span>
+              <span id="luckyPercentage" class="gauge-value">95%</span>
+            </div>
+            <div class="gauge-bar-track">
+              <div id="luckyProgressBar" class="gauge-bar-fill" style="width: 95%;"></div>
+            </div>
+            <p class="gauge-hint">點擊右側小貓可摸摸撫慰、觸發呼嚕聲與金幣爆破微粒！</p>
+          </div>
+
+          <!-- 6 種心情型態即時切換（精確對應你給的 6 張圖） -->
+          <div class="mood-selector">
+            <span class="selector-title">切換小貓守護型態（點擊切換姿態與靈光）：</span>
+            <div class="mood-buttons">
+              <button class="mood-btn active" data-img="03 (1).png" data-name="招福揮手" data-phrase="「喵！向你揮揮手，把今天的福氣都招攬過來！」">
+                <span>🐾</span> 招福揮手
+              </button>
+              <button class="mood-btn" data-img="07.png" data-name="愛心滿滿" data-phrase="「緊緊抱著大愛心，所有的善意與溫暖都屬於你！」">
+                <span>💖</span> 愛心滿滿
+              </button>
+              <button class="mood-btn" data-img="01 (4).png" data-name="開懷大笑" data-phrase="「開懷大笑！快樂是一切好運最強大的引力！」">
+                <span>😆</span> 開懷大笑
+              </button>
+              <button class="mood-btn" data-img="01 (3).png" data-name="翻肚放鬆" data-phrase="「翻肚肚伸懶腰～放慢呼吸，事情自然會拼出好結果！」">
+                <span>🛌</span> 翻肚放鬆
+              </button>
+              <button class="mood-btn" data-img="05 (2).png" data-name="守護毛帽" data-phrase="「戴上暖呼呼小貓帽，為你抵禦風雨、守護平安！」">
+                <span>🧶</span> 守護毛帽
+              </button>
+              <button class="mood-btn" data-img="04 (2).png" data-name="舔爪招財" data-phrase="「洗洗臉、舔舔爪，客來、財聚、福氣自然到！」">
+                <span>✨</span> 舔爪招財
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D 舞台 -->
+        <div class="hero-stage-wrapper">
+          <div class="stage-pedestal" id="pedestalContainer">
+            <div class="pedestal-glow"></div>
+            <div class="lucky-halo"></div>
+
+            <div class="cat-avatar-container" id="catAvatarElement">
+              <div class="speech-bubble" id="catSpeech">
+                <span class="bubble-text">「喵！向你揮揮手，把今天的福氣都招攬過來！」</span>
+              </div>
+
+              <!-- 主體小貓照片 -->
+              <img id="heroCatImg" class="hero-cat-img" data-cat="03 (1).png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="幸運小貓主體">
+            </div>
+
+            <div class="stage-controls">
+              <button id="floatToggleBtn" class="pill-btn" title="切換飄浮視角">
+                <span>🪄</span> 靈動飄浮視角
+              </button>
+              <button id="petCatBtn" class="pill-btn primary" title="撫摸小貓注入好運">
+                <span>💛</span> 摸摸小貓 +能量
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 由來與故事 -->
+    <section id="story" class="content-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="sub-heading">ORIGIN & COMPANIONSHIP</span>
+          <h2 class="main-heading">從日常偶遇，到不可或缺的幸運守護</h2>
+          <div class="heading-line"></div>
+        </div>
+
+        <div class="story-grid">
+          <div class="story-card interactive-card">
+            <div class="card-glow"></div>
+            <div class="story-badge">MEETING</div>
+            <div class="story-icon">🏡</div>
+            <h3 class="story-title">走進家門的那抹溫暖靈光</h3>
+            <p class="story-text">
+              牠不僅僅是一隻寵物，更是在我生命歷程關鍵時刻來到家裡的禮物。帶著野生虎斑經典的俐落花紋，卻擁有極度親人撒嬌的反差魅力。從牠踩下第一個腳印起，家裡便充滿了笑聲與滿滿的好運氣場。
+            </p>
+            <div class="card-footer-tag">緣分與安定的起點</div>
+          </div>
+
+          <div class="story-card interactive-card">
+            <div class="card-glow"></div>
+            <div class="story-badge">PURR HEALING</div>
+            <div class="story-icon">🎵</div>
+            <h3 class="story-title">25Hz 呼嚕聲：天然的平靜音頻</h3>
+            <p class="story-text">
+              科學研究指出，貓咪介於 20-50Hz 的呼嚕震動具有安撫神經、促進身心修復的效果。每當面對課業考試、程式碼除錯或生活壓力時，只要牠把下巴輕輕擱在鍵盤邊、發出規律的呼嚕聲，煩悶便一掃而空。
+            </p>
+            <div class="card-footer-tag">天然心靈護身符</div>
+          </div>
+
+          <div class="story-card interactive-card">
+            <div class="card-glow"></div>
+            <div class="story-badge">CLEAR EYES</div>
+            <div class="story-icon">✨</div>
+            <h3 class="story-title">琥珀圓眼的凝視：洞悉未來的定心力</h3>
+            <p class="story-text">
+              那一雙圓滾滾、猶如金黃琥珀般的雙眼，總是清澈而專注。牠凝視著我時，彷彿在提醒我：「別急，放輕鬆，一切都會順其自然地變好。」這份純真堅定的眼神，成為了我無往不利的幸運底氣。
+            </p>
+            <div class="card-footer-tag">守護靈魂的定心石</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 幸運寫真集（完整展示 6 款照片與燈箱） -->
+    <section id="gallery" class="content-section bg-darker">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="sub-heading">PHOTO MOMENTS</span>
+          <h2 class="main-heading">幸運小貓專屬寫真集</h2>
+          <p class="section-lead">完整收錄 6 款不同療癒姿態的幸運小貓照片，完整記錄生活中的萌感與福氣（點擊卡片可展開全螢幕高清放大檢視）。</p>
+          <div class="heading-line"></div>
+        </div>
+
+        <div class="cat-gallery-grid">
+          <!-- 照片 1: 03 (1).png 招手打招呼 -->
+          <div class="cat-photo-card" data-full="03 (1).png" data-caption="🐾 招福小肉球：舉起右爪熱情打招呼，為你招來貴人與良善良緣">
+            <div class="photo-wrapper">
+              <span class="photo-tag">Lucky #01</span>
+              <img data-cat="03 (1).png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="幸運小貓招福" loading="lazy">
+            </div>
+            <div class="photo-info">
+              <h4>招福招運小肉球</h4>
+              <p>舉爪微笑揮舞，象徵客來福聚、好運連綿不斷。</p>
+            </div>
+          </div>
+
+          <!-- 照片 2: 07.png 抱著愛心 -->
+          <div class="cat-photo-card" data-full="07.png" data-caption="💖 懷抱愛心的小幸運：滿滿的被愛與陪伴，撫平所有不安">
+            <div class="photo-wrapper">
+              <span class="photo-tag">Lucky #02</span>
+              <img data-cat="07.png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="幸運小貓抱愛心" loading="lazy">
+            </div>
+            <div class="photo-info">
+              <h4>滿懷愛意的守護</h4>
+              <p>緊抱粉嫩愛心，象徵人際融洽、內心充滿踏實與溫柔。</p>
+            </div>
+          </div>
+
+          <!-- 照片 3: 01 (4).png 開懷大笑 -->
+          <div class="cat-photo-card" data-full="01 (4).png" data-caption="😆 開懷歡笑聚福氣：眼睛笑成彎月，笑容就是最強的好運磁鐵">
+            <div class="photo-wrapper">
+              <span class="photo-tag">Lucky #03</span>
+              <img data-cat="01 (4).png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="幸運小貓開懷大笑" loading="lazy">
+            </div>
+            <div class="photo-info">
+              <h4>大笑招來吉祥運</h4>
+              <p>雙眼彎如弦月、嘴角洋溢歡笑，笑看人生萬千難關。</p>
+            </div>
+          </div>
+
+          <!-- 照片 4: 01 (3).png 翻肚肚放鬆 -->
+          <div class="cat-photo-card" data-full="01 (3).png" data-caption="🛌 仰躺放鬆的無憂姿態：卸除所有防衛，帶來極致平靜">
+            <div class="photo-wrapper">
+              <span class="photo-tag">Lucky #04</span>
+              <img data-cat="01 (3).png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="幸運小貓翻肚肚" loading="lazy">
+            </div>
+            <div class="photo-info">
+              <h4>無憂無慮放鬆姿態</h4>
+              <p>翻肚四腳朝天，象徵完全信任、無拘無束的平靜心境。</p>
+            </div>
+          </div>
+
+          <!-- 照片 5: 05 (2).png 戴小貓毛帽 -->
+          <div class="cat-photo-card" data-full="05 (2).png" data-caption="🧶 守護毛帽小精靈：雙層萌力加持，為你遮風擋雨、擋煞避凶">
+            <div class="photo-wrapper">
+              <span class="photo-tag">Lucky #05</span>
+              <img data-cat="05 (2).png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="幸運小貓戴毛帽" loading="lazy">
+            </div>
+            <div class="photo-info">
+              <h4>溫暖守護小毛帽</h4>
+              <p>大眼凝視且戴著白貓毛帽，如同最忠實的隨身護身符。</p>
+            </div>
+          </div>
+
+          <!-- 照片 6: 04 (2).png 舔手手偷笑 -->
+          <div class="cat-photo-card" data-full="04 (2).png" data-caption="✨ 洗面舔爪招財氣：靈巧可愛，暗自竊喜迎接豐收">
+            <div class="photo-wrapper">
+              <span class="photo-tag">Lucky #06</span>
+              <img data-cat="04 (2).png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="幸運小貓舔手" loading="lazy">
+            </div>
+            <div class="photo-info">
+              <h4>洗面舔爪聚財氣</h4>
+              <p>民俗中貓咪舔爪洗臉即是「客來、財聚、喜訊到」的吉兆。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 象徵意涵 -->
+    <section id="symbolism" class="content-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="sub-heading">SYMBOLIC MEANING</span>
+          <h2 class="main-heading">為什麼虎斑小貓是我的專屬幸運物？</h2>
+          <p class="section-lead">這不只是一隻貓咪，更是一種生活智慧與精神象徵，四大特質指引著我的心靈前行。</p>
+          <div class="heading-line"></div>
+        </div>
+
+        <div class="symbol-grid">
+          <div class="symbol-card interactive-card" data-tilt>
+            <div class="symbol-banner">
+              <span class="symbol-num">01</span>
+              <span class="symbol-emoji">🍀</span>
+            </div>
+            <h3 class="symbol-title">消融焦慮的平安力量 (Peace & Calm)</h3>
+            <h4 class="symbol-subtitle">「呼吸慢下來，好運自然會拼合。」</h4>
+            <p class="symbol-desc">
+              貓咪從容優雅的作息，是快節奏世界中最強大的定心丸。每次看見牠伸懶腰、輕巧踏步，總能提醒自己放下急躁，在平靜中做出最好的決策。
+            </p>
+            <ul class="symbol-bullets">
+              <li>維持情緒穩定的避風港</li>
+              <li>帶來萬事平安與如意的心境</li>
+            </ul>
+          </div>
+
+          <div class="symbol-card interactive-card" data-tilt>
+            <div class="symbol-banner">
+              <span class="symbol-num">02</span>
+              <span class="symbol-emoji">🧧</span>
+            </div>
+            <h3 class="symbol-title">迎財聚氣的靈動貴客 (Fortune & Wealth)</h3>
+            <h4 class="symbol-subtitle">「舉手抬足間，招引貴人與良善之氣。」</h4>
+            <p class="symbol-desc">
+              在東方文化與民間傳統中，貓咪洗臉、舉爪皆有「客來、財聚、福臨門」的象徵。虎斑紋路猶如微縮的猛虎神威，護宅安居、趨吉避凶。
+            </p>
+            <ul class="symbol-bullets">
+              <li>招財進寶的吉祥象徵</li>
+              <li>吸引良善善緣與學習契機</li>
+            </ul>
+          </div>
+
+          <div class="symbol-card interactive-card" data-tilt>
+            <div class="symbol-banner">
+              <span class="symbol-num">03</span>
+              <span class="symbol-emoji">💛</span>
+            </div>
+            <h3 class="symbol-title">專注當下的純粹哲學 (Mindfulness)</h3>
+            <h4 class="symbol-subtitle">「睏了就睡，醒了就好奇探索。」</h4>
+            <p class="symbol-desc">
+              貓咪永遠活在最純粹的當下。牠不為昨天懊惱，也不為明天擔憂。每當我陷入精神內耗，看著牠專注撲玩一顆毛線球的模樣，便能立刻找回生活熱情。
+            </p>
+            <ul class="symbol-bullets">
+              <li>擺脫內耗，回歸純真專注</li>
+              <li>對世界永遠保持熱情與好奇心</li>
+            </ul>
+          </div>
+
+          <div class="symbol-card interactive-card" data-tilt>
+            <div class="symbol-banner">
+              <span class="symbol-num">04</span>
+              <span class="symbol-emoji">🐾</span>
+            </div>
+            <h3 class="symbol-title">輕巧跨越障礙的敏捷韌性 (Agility)</h3>
+            <h4 class="symbol-subtitle">「無論從哪裡跌落，永遠四腳平穩著地。」</h4>
+            <p class="symbol-desc">
+              貓咪擁有無與倫比的平衡感與柔韌身軀。象徵著人在面對生活突如其來的衝擊與轉折時，也能像貓一樣輕巧優雅地化解難題，穩健邁出下一步。
+            </p>
+            <ul class="symbol-bullets">
+              <li>面對失敗的彈性調整力</li>
+              <li>優雅面對人生各種未知轉折</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 今日籤筒 -->
+    <section id="fortune" class="content-section bg-darker">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="sub-heading">DAILY CAT BLESSING</span>
+          <h2 class="main-heading">今日幸運籤筒</h2>
+          <p class="section-lead">輕撫籤筒，讓小貓為你抽出專屬的今日開運金句、幸運色與幸運數字！</p>
+          <div class="heading-line"></div>
+        </div>
+
+        <div class="fortune-box-container">
+          <div class="fortune-display-card" id="fortuneCard">
+            <div class="card-inner">
+              <div class="fortune-icon-wrap" id="fortuneIcon">🐱</div>
+              <h3 class="fortune-character-name" id="fortuneTitle">點擊下方按鈕抽取今日籤詩</h3>
+              <p class="fortune-quote" id="fortuneQuote">「小貓眨眼，好運湧現；心懷善念，萬事皆成。」</p>
+              <div class="fortune-stats" id="fortuneStats">
+                <div class="stat-item">
+                  <span class="stat-name">今日幸運色</span>
+                  <span class="stat-badge" id="luckyColorBadge" style="background: #f59e0b; color: #111;">琥珀金黃</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-name">開運幸運物</span>
+                  <span class="stat-badge" id="luckyItemBadge">金色招財肉球</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-name">幸運數字</span>
+                  <span class="stat-badge" id="luckyNumberBadge" style="background: rgba(245,158,11,0.2); color: #f59e0b;">No. 77</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fortune-action-area">
+            <button id="drawFortuneBtn" class="draw-cat-btn">
+              <span class="draw-btn-text">🏮 搖動籤筒・抽取今日幸運</span>
+            </button>
+            <span style="font-size: 0.8rem; color: var(--text-dim);">（每次祈福皆會伴隨金鈴音效與吉祥金幣灑落）</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 步驟三 Prompt 指令紀錄 -->
+    <section id="prompt-section" class="content-section prompt-showcase-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="sub-heading">ASSIGNMENT SPECIFICATION ・ STEP 3</span>
+          <h2 class="main-heading">步驟三：Prompt 下達指令紀錄</h2>
+          <p class="section-lead">在專案規劃與實作歷程中，下達給 AI 輔助開發的精準 Prompt 與動態腳本工程架構紀錄。</p>
+          <div class="heading-line"></div>
+        </div>
+
+        <div class="prompt-terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-title">514170284_LuckyCat_Interactive_Prompt.sh</div>
+            <div class="terminal-badge">AI Prompt Command</div>
+          </div>
+
+          <div class="terminal-body">
+            <div class="prompt-line-tag"># 作業指定下達之精準 Prompt 指令：</div>
+            <div class="prompt-box">
+              <span class="prompt-cursor">&gt;</span>
+              <code class="prompt-code-text">請幫我規劃並製作這個幸運物網頁的動態互動效果，包含滑鼠懸停與點擊動畫。</code>
+              <button id="copyPromptBtn" class="copy-btn" title="複製此 Prompt">複製指令</button>
+            </div>
+
+            <div class="prompt-response-overview">
+              <h4 class="overview-title">📋 互動腳本規劃與實作成效清單：</h4>
+              <div class="spec-grid">
+                <div class="spec-item">
+                  <div class="spec-icon">🖱️</div>
+                  <div class="spec-info">
+                    <h5>1. 3D 視差傾斜 (Mouse Tilt)</h5>
+                    <p>監聽滑鼠座標，展示台小貓與象徵卡片依游標位置呈現精緻的 3D 傾角與微光澤移動。</p>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">🪙</div>
+                  <div class="spec-info">
+                    <h5>2. 點擊金幣掉落特效 (Particle Burst)</h5>
+                    <p>點擊網頁任意位置或小貓，從點擊處發射「福、吉、財、旺、喵、💖」圓形金幣與肉球粒子。</p>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">🔊</div>
+                  <div class="spec-info">
+                    <h5>3. Web Audio 原生音效 (Purr & Bell Chime)</h5>
+                    <p>免外部音檔，透過瀏覽器 Web Audio API 合成貓咪親暱呼嚕聲與開運金鈴清脆和弦。</p>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">🖼️</div>
+                  <div class="spec-info">
+                    <h5>4. 6款幸運寫真燈箱放大 (Lightbox Modal)</h5>
+                    <p>點擊 6 種療癒虎斑小貓卡片可全螢幕高清展示，支援 Esc 鍵與背景點擊流暢關閉。</p>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">🐾</div>
+                  <div class="spec-info">
+                    <h5>5. 6大守護型態切換 (Mood Switcher)</h5>
+                    <p>提供揮手、抱愛心、開懷笑、翻肚肚、戴毛帽、舔爪爪 6 款萌力造型即時流暢替換。</p>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">🎴</div>
+                  <div class="spec-info">
+                    <h5>6. 每日幸運籤抽籤邏輯 (Fortune Generator)</h5>
+                    <p>搭配震動動畫與數值演算，隨機生成專屬幸運物祝福金句、開運色與幸運數字。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- 全螢幕相片燈箱 -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="lb-close" id="lbCloseBtn" aria-label="關閉">&times;</button>
+      <img id="lbImg" src="" alt="貓咪照片放大">
+      <p id="lbCap"></p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <div class="cat-brand-badge">🐱</div>
+          <span class="footer-brand-title">LUCKY TABBY CAT CHARM</span>
+        </div>
+        <p class="footer-desc">
+          輔仁大學 大二《多媒體網頁設計》課程作業成果<br>
+          以故事驅動、現代暗色美學與多重互動腳本呈現隨身幸運物（虎斑貓）的治癒與陪伴。
+        </p>
+      </div>
+
+      <div class="footer-meta">
+        <div class="student-info-box">
+          <span class="meta-label">專案作者資訊：</span>
+          <span class="meta-value student-badge">514170284 ｜ 黃修逸</span>
+        </div>
+        <p class="copyright-text">
+          &copy; 2026 多媒體網頁設計課程. Crafted with devotion & feline luck.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
